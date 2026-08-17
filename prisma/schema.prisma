@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  bio          String?
+  createdAt    DateTime  @default(now())
+
+  recipes      Recipe[]
+  comments     Comment[]
+  likes        Like[]
+}
+
+model Recipe {
+  id               String    @id @default(cuid())
+  title            String
+  description      String?
+  ingredients      String[]
+  instructions     String[]
+  servings         Int?
+  prepTimeMinutes  Int?
+  cookTimeMinutes  Int?
+  tags             String[]
+  imageUrl         String?
+  imageDriveId     String?
+  published        Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  authorId         String
+  author           User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments         Comment[]
+  likes            Like[]
+
+  @@index([authorId])
+  @@index([published, createdAt])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([recipeId])
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recipeId])
+  @@index([recipeId])
+}
