@@ -52,7 +52,6 @@ export default function ImageUploader({ imageUrl, onChange }: Props) {
             ref={inputRef}
             type="file"
             accept="image/jpeg,image/png,image/webp,image/gif"
-            capture="environment"
             className="hidden"
             onChange={(e) => handleFile(e.target.files?.[0])}
           />

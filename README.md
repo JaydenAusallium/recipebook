@@ -5,6 +5,13 @@ other people browse, like, and comment on them. Recipes are grouped by a fixed
 category (Breakfast, Salad, Bread, Dessert, etc. — see `src/lib/categories.ts`)
 for browsing, plus free-form tags for finer-grained search.
 
+Any recipe, public or private, can be shared as a read-only page at
+`/share/[recipeId]` via the Share button — no login required to view it, and it
+has no edit/comment/like controls. This is "unlisted" access, the same model as
+a Google Docs share link: knowing the (unguessable) URL is what grants access,
+not the recipe's public/private setting. Don't share the link for a private
+recipe anywhere you wouldn't want it to end up.
+
 Built with Next.js (App Router), TypeScript, Tailwind CSS, PostgreSQL + Prisma,
 and NextAuth (Auth.js). Photos are uploaded to a Google Drive folder rather than
 stored on the server, to keep hosting storage/cost small. The UI is mobile-first
