@@ -67,8 +67,8 @@ export default async function MyRecipesPage() {
                   {recipe.title}
                 </Link>
                 <p className="text-xs text-muted">
-                  {recipe.published ? "Public" : "Private"} · ❤️{" "}
-                  {recipe._count.likes} · 💬 {recipe._count.comments}
+                  {recipe.category} · {recipe.published ? "Public" : "Private"} ·
+                  ❤️ {recipe._count.likes} · 💬 {recipe._count.comments}
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-3">

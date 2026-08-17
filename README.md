@@ -1,7 +1,9 @@
 # Recipebook
 
 Store and edit your recipes instead of writing them down, upload photos, and let
-other people browse, like, and comment on them.
+other people browse, like, and comment on them. Recipes are grouped by a fixed
+category (Breakfast, Salad, Bread, Dessert, etc. — see `src/lib/categories.ts`)
+for browsing, plus free-form tags for finer-grained search.
 
 Built with Next.js (App Router), TypeScript, Tailwind CSS, PostgreSQL + Prisma,
 and NextAuth (Auth.js). Photos are uploaded to a Google Drive folder rather than

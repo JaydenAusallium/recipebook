@@ -1,3 +1,5 @@
+import { DEFAULT_CATEGORY, isCategory } from "./categories";
+
 export type RecipeInput = {
   title: string;
   description: string | null;
@@ -6,6 +8,7 @@ export type RecipeInput = {
   servings: number | null;
   prepTimeMinutes: number | null;
   cookTimeMinutes: number | null;
+  category: string;
   tags: string[];
   imageUrl: string | null;
   imageDriveId: string | null;
@@ -56,6 +59,8 @@ export function parseRecipeInput(
     return { error: "Add at least one instruction step." };
   }
 
+  const category = isCategory(b.category) ? b.category : DEFAULT_CATEGORY;
+
   const tags = cleanStringList(b.tags, 20).map((t) => t.toLowerCase());
 
   const imageUrl = typeof b.imageUrl === "string" && b.imageUrl ? b.imageUrl : null;
@@ -73,6 +78,7 @@ export function parseRecipeInput(
       servings: toNullableInt(b.servings),
       prepTimeMinutes: toNullableInt(b.prepTimeMinutes),
       cookTimeMinutes: toNullableInt(b.cookTimeMinutes),
+      category,
       tags,
       imageUrl,
       imageDriveId,

@@ -48,7 +48,13 @@ export default async function RecipeDetailPage({ params }: Props) {
 
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">{recipe.title}</h1>
+          <Link
+            href={`/?category=${encodeURIComponent(recipe.category)}`}
+            className="inline-block rounded-full bg-brand/10 px-2.5 py-0.5 text-xs font-medium text-brand-dark hover:bg-brand/20 dark:text-brand"
+          >
+            {recipe.category}
+          </Link>
+          <h1 className="mt-1.5 text-2xl font-bold tracking-tight">{recipe.title}</h1>
           <p className="mt-1 text-sm text-muted">
             by {recipe.author.name}
             {!recipe.published && (

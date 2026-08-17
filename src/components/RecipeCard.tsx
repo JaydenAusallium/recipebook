@@ -5,6 +5,7 @@ export type RecipeCardData = {
   title: string;
   description: string | null;
   imageUrl: string | null;
+  category: string;
   tags: string[];
   prepTimeMinutes: number | null;
   cookTimeMinutes: number | null;
@@ -37,6 +38,9 @@ export default function RecipeCard({ recipe }: { recipe: RecipeCardData }) {
         )}
       </div>
       <div className="flex flex-1 flex-col gap-1.5 p-3.5">
+        <span className="w-fit rounded-full bg-brand/10 px-2 py-0.5 text-[11px] font-medium text-brand-dark dark:text-brand">
+          {recipe.category}
+        </span>
         <h3 className="line-clamp-2 font-semibold leading-snug">
           {recipe.title}
         </h3>

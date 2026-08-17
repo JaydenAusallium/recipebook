@@ -29,6 +29,7 @@ model Recipe {
   servings         Int?
   prepTimeMinutes  Int?
   cookTimeMinutes  Int?
+  category         String    @default("Other")
   tags             String[]
   imageUrl         String?
   imageDriveId     String?
@@ -44,6 +45,7 @@ model Recipe {
 
   @@index([authorId])
   @@index([published, createdAt])
+  @@index([published, category])
 }
 
 model Comment {

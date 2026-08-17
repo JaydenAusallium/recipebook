@@ -2,12 +2,19 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { parseRecipeInput } from "@/lib/recipeValidation";
+import { CATEGORIES } from "@/lib/categories";
 
 export async function GET(request: Request) {
   const session = await auth();
   const { searchParams } = new URL(request.url);
   const q = searchParams.get("q")?.trim() ?? "";
   const tag = searchParams.get("tag")?.trim().toLowerCase() ?? "";
+  const categoryParam = searchParams.get("category")?.trim() ?? "";
+  const category = CATEGORIES.includes(
+    categoryParam as (typeof CATEGORIES)[number]
+  )
+    ? categoryParam
+    : "";
   const mine = searchParams.get("mine") === "1";
 
   if (mine && !session?.user) {
@@ -29,6 +36,7 @@ export async function GET(request: Request) {
           }
         : {}),
       ...(tag ? { tags: { has: tag } } : {}),
+      ...(category ? { category } : {}),
     },
     orderBy: { createdAt: "desc" },
     take: 100,

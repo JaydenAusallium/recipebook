@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ListEditor from "./ListEditor";
 import ImageUploader from "./ImageUploader";
+import { CATEGORIES, DEFAULT_CATEGORY } from "@/lib/categories";
 
 export type RecipeFormValues = {
   id?: string;
@@ -14,6 +15,7 @@ export type RecipeFormValues = {
   servings: number | null;
   prepTimeMinutes: number | null;
   cookTimeMinutes: number | null;
+  category: string;
   tags: string[];
   imageUrl: string | null;
   imageDriveId: string | null;
@@ -28,6 +30,7 @@ const emptyRecipe: RecipeFormValues = {
   servings: null,
   prepTimeMinutes: null,
   cookTimeMinutes: null,
+  category: DEFAULT_CATEGORY,
   tags: [],
   imageUrl: null,
   imageDriveId: null,
@@ -126,6 +129,21 @@ export default function RecipeForm({
           set("imageDriveId", imageDriveId);
         }}
       />
+
+      <label className="flex flex-col gap-1.5">
+        <span className="text-sm font-medium">Category</span>
+        <select
+          value={values.category}
+          onChange={(e) => set("category", e.target.value)}
+          className="rounded-lg border border-border bg-card px-3.5 py-2.5 text-base outline-none focus:border-brand"
+        >
+          {CATEGORIES.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <div className="grid grid-cols-3 gap-3">
         <label className="flex flex-col gap-1.5">
